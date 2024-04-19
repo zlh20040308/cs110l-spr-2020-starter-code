@@ -9,7 +9,7 @@ fn main() {
     println!("{}", ref3.to_uppercase());
 }
 ```
-
+Answer: This code does not compile. The variable s is mutable, but it is borrowed immutably by ref1. Borrowing s again through ref2 and ref3 is not allowed while it is still borrowed immutably. To fix this, either make s mutable when borrowing it or avoid reassigning s.
 
 
 Example 2:
@@ -19,7 +19,7 @@ fn drip_drop() -> &String {
     return &s;
 }
 ```
-
+Answer: This code does not compile. The function drip_drop returns a reference to a String (&String), but the String s is created inside the function and will be dropped at the end of the function scope, making the reference invalid. To fix this, either return the ownership of s or change the function signature to return a String instead of a reference.
 
 
 Example 3:
@@ -32,3 +32,4 @@ fn main() {
     println!("{}", s2);
 }
 ```
+Answer: This code compiles. The String s1 is moved into the vector v when pushing it, so ownership of the string is transferred to the vector. Then, when accessing v[0], ownership is moved again to s2. Finally, s2 is printed, and ownership remains with it until it goes out of scope at the end of main().
